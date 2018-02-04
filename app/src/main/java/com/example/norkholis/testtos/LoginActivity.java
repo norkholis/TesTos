@@ -1,5 +1,6 @@
 package com.example.norkholis.testtos;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -75,15 +76,21 @@ public class LoginActivity extends AppCompatActivity {
 
                             if (userList!=null) {
                                 User user = userList.get(0);
-                                String username = user.getId().toString();
+
+                                String username = user.getUsername().toString();
                                 String token = user.getToken().toString();
+                                String nama = user.getNamaLengkap().toString();
                                 sharedPrefManager.saveSPString(SharedPrefManager.SP_USERNAME, username);
                                 sharedPrefManager.saveSPString(SharedPrefManager.SP_TOKEN, token);
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_NAME, nama);
 
                                 sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_IS_LOGIN, true);
                                 Intent i = new Intent(LoginActivity.this, MainActivity.class)
                                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                i.putExtra("result_username", username);
+                                Bundle extras = new Bundle();
+                                extras.putString("result_username", nama);
+                                extras.putString("token", token);
+                                i.putExtras(extras);
                                 startActivity(i);
                                 finish();
                             }else{

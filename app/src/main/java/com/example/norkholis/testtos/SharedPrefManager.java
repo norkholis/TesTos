@@ -10,7 +10,8 @@ import android.content.SharedPreferences;
 public class SharedPrefManager {
     public static final String SP_LOGIN_APP = "spLoginApp";
 
-    public static final String SP_USERNAME = "spNama";
+    public static final String SP_USERNAME = "spUsername";
+    public static final String SP_NAME = "spName";
     public static final String SP_EMAIL = "spEmail";
     public static final String SP_TOKEN = "spToken";
 
@@ -44,11 +45,15 @@ public class SharedPrefManager {
     }
 
     public  String getSpEmail(){
-        return sp.getString(SP_USERNAME, "");
+        return sp.getString(SP_EMAIL, "");
     }
 
     public String getSpToken(){
         return sp.getString(SP_TOKEN, "");
+    }
+
+    public String getSpName(){
+        return sp.getString(SP_NAME, "");
     }
 
     public boolean getSpIsLogin(){
