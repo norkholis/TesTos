@@ -20,6 +20,6 @@ public interface BaseApiService {
     Call<ListUser>loginRequest(@Field("username")String username,
                                  @Field("password")String password);
 
-    @GET("kendaraan?_token")
-    Call <List<Kendaraan>>dataKendaraan(@Query("token")String token);
+    @GET("kendaraan")
+    Call <List<Kendaraan>>dataKendaraan(@Query("_token")String token);
 }

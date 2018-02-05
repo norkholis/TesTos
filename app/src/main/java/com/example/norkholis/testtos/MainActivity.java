@@ -51,6 +51,27 @@ public class MainActivity extends AppCompatActivity {
             txt_username.setText(nama);
             String token = sharedPrefManager.getSpToken();
             txt_token.setText(token);
+
+            mBaseApiService = UtilApi.getApiService();
+            mBaseApiService.dataKendaraan(token).enqueue(new Callback<List<Kendaraan>>() {
+                @Override
+                public void onResponse(Call<List<Kendaraan>> call, Response<List<Kendaraan>> response) {
+                    if (response.isSuccessful()){
+                        List<Kendaraan> listKendaraan = response.body();
+                        recyclerview = (RecyclerView)findViewById(R.id.listKendaraan);
+                        mKendaraanAdapter = new KendaraanAdapter(listKendaraan);
+                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                        recyclerview.setLayoutManager(mLayoutManager);
+                        recyclerview.setItemAnimator(new DefaultItemAnimator());
+                        recyclerview.setAdapter(mKendaraanAdapter);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Kendaraan>> call, Throwable t) {
+                    Toast.makeText(MainActivity.this, "Something Wrong", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         mBaseApiService = UtilApi.getApiService();
@@ -85,4 +106,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
