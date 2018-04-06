@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.norkholis.testtos.model.Datum;
+
 import java.util.List;
 
 /**
@@ -13,9 +15,9 @@ import java.util.List;
  */
 
 public class KendaraanAdapter extends RecyclerView.Adapter<KendaraanAdapter.CustomViewHolder>{
-    private List<Kendaraan> kendaraans;
+    private List<Datum> kendaraans;
 
-    public KendaraanAdapter(List<Kendaraan> kendaraans) {
+    public KendaraanAdapter(List<Datum> kendaraans) {
         this.kendaraans = kendaraans;
     }
 
@@ -30,7 +32,7 @@ public class KendaraanAdapter extends RecyclerView.Adapter<KendaraanAdapter.Cust
 
     @Override
     public void onBindViewHolder(CustomViewHolder holder, int position) {
-        Kendaraan kendaraan = kendaraans.get(position);
+        Datum kendaraan = kendaraans.get(position);
         holder.merek_kendaraan.setText(kendaraan.getMerkKendaraan());
         holder.nopol.setText(kendaraan.getNopol());
         holder.tipe_mobil.setText(kendaraan.getJenisKendaraan());

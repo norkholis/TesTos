@@ -6,10 +6,14 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.norkholis.testtos.model.Datum;
+import com.example.norkholis.testtos.model.ResponseKendaraan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,13 +57,13 @@ public class MainActivity extends AppCompatActivity {
             txt_token.setText(token);
 
             mBaseApiService = UtilApi.getApiService();
-            mBaseApiService.dataKendaraan(token).enqueue(new Callback<List<Kendaraan>>() {
+            mBaseApiService.dataKendaraan(token).enqueue(new Callback<ResponseKendaraan>() {
                 @Override
-                public void onResponse(Call<List<Kendaraan>> call, Response<List<Kendaraan>> response) {
+                public void onResponse(Call<ResponseKendaraan> call, Response<ResponseKendaraan> response) {
                     if (response.isSuccessful()){
-                        List<Kendaraan> listKendaraan = response.body();
+                        List<Datum> dataKendaraan = response.body().getData();
                         recyclerview = (RecyclerView)findViewById(R.id.listKendaraan);
-                        mKendaraanAdapter = new KendaraanAdapter(listKendaraan);
+                        mKendaraanAdapter = new KendaraanAdapter(dataKendaraan);
                         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                         recyclerview.setLayoutManager(mLayoutManager);
                         recyclerview.setItemAnimator(new DefaultItemAnimator());
@@ -68,20 +72,21 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<List<Kendaraan>> call, Throwable t) {
+                public void onFailure(Call<ResponseKendaraan> call, Throwable t) {
                     Toast.makeText(MainActivity.this, "Something Wrong", Toast.LENGTH_SHORT).show();
                 }
             });
+
         }
 
         mBaseApiService = UtilApi.getApiService();
-        mBaseApiService.dataKendaraan(token).enqueue(new Callback<List<Kendaraan>>() {
+        mBaseApiService.dataKendaraan(token).enqueue(new Callback<ResponseKendaraan>() {
             @Override
-            public void onResponse(Call<List<Kendaraan>> call, Response<List<Kendaraan>> response) {
+            public void onResponse(Call<ResponseKendaraan> call, Response<ResponseKendaraan> response) {
                 if (response.isSuccessful()){
-                    List<Kendaraan> listKendaraan = response.body();
+                    List<Datum> dataKendaraan = response.body().getData();
                     recyclerview = (RecyclerView)findViewById(R.id.listKendaraan);
-                    mKendaraanAdapter = new KendaraanAdapter(listKendaraan);
+                    mKendaraanAdapter = new KendaraanAdapter(dataKendaraan);
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                     recyclerview.setLayoutManager(mLayoutManager);
                     recyclerview.setItemAnimator(new DefaultItemAnimator());
@@ -90,10 +95,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Kendaraan>> call, Throwable t) {
+            public void onFailure(Call<ResponseKendaraan> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Something Wrong", Toast.LENGTH_SHORT).show();
             }
         });
+
 
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,3 +114,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+
+//            mBaseApiService.dataKendaraan(token).enqueue(new Callback<List<Kendaraan>>() {
+//@Override
+//public void onResponse(Call<List<Kendaraan>> call, Response<List<Kendaraan>> response) {
+//        if (response.isSuccessful()){
+//        List<Kendaraan> listKendaraan = response.body();
+//        recyclerview = (RecyclerView)findViewById(R.id.listKendaraan);
+//        mKendaraanAdapter = new KendaraanAdapter(listKendaraan);
+//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+//        recyclerview.setLayoutManager(mLayoutManager);
+//        recyclerview.setItemAnimator(new DefaultItemAnimator());
+//        recyclerview.setAdapter(mKendaraanAdapter);
+//        }
+//        }
+//
+//@Override
+//public void onFailure(Call<List<Kendaraan>> call, Throwable t) {
+//        Toast.makeText(MainActivity.this, "Something Wrong", Toast.LENGTH_SHORT).show();
+//        }
+//        });

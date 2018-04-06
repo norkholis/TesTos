@@ -6,7 +6,7 @@ package com.example.norkholis.testtos;
  */
 
 public class UtilApi {
-    public static final String BASE_URL_API = "http://80.211.135.231/mobile_parking/public/api/";
+    public static final String BASE_URL_API = "http://128.199.133.21/mobile_parking/public/api/";
 
 
     public static BaseApiService getApiService(){

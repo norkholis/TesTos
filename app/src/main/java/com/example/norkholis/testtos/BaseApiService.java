@@ -1,5 +1,7 @@
 package com.example.norkholis.testtos;
 
+import com.example.norkholis.testtos.model.ResponseKendaraan;
+
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -21,5 +23,5 @@ public interface BaseApiService {
                                  @Field("password")String password);
 
     @GET("kendaraan")
-    Call <List<Kendaraan>>dataKendaraan(@Query("_token")String token);
+    Call <ResponseKendaraan>dataKendaraan(@Query("_token")String token);
 }
